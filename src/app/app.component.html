@@ -1,5 +1,10 @@
-<h3>Invoices Table</h3>
-<button type="button" (click)="showDialogToAddItem()">Add</button>
+<h3 class="text-center">Invoices Table</h3>
+
+<div class="form-group">
+    <button type="button" (click)="showDialogToAddItem()" class="btn btn-success">Add</button>
+    <button type="button" (click)="removeItem()" class="btn btn-danger" [disabled]="selectedInvoice == null">Delete</button>
+</div>
+
 <p-dataTable [value]="invoices" selectionMode="single" [(selection)]="selectedInvoice" [contextMenu]="cm">
     <p-column field="InternalNumber" header="Internal Number" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
     <p-column field="ProFormInvoiceDate" header="Pro Form Invoice Date" [sortable]="true"></p-column>
@@ -7,7 +12,11 @@
     <p-column field="ProFormInvoiceNo" header="Pro Form Invoice No." [sortable]="true"></p-column>
     <p-column field="FinalInvoiceNo" header="Final Invoice No." [sortable]="true"></p-column>
     <p-column field="ProviderName" header="Provider Name" [sortable]="true"></p-column>
-    <p-column field="ActivitiesValue" header="Activities Value" [sortable]="true"></p-column>
+    <p-column field="ActivitiesValue" header="Activities Value" [sortable]="true">
+        <ng-template let-invoice="rowData" pTemplate type="body">
+            {{invoice.ActivitiesValue | currency:'USD':true:'1.2-2'}}
+        </ng-template>
+    </p-column>
     <p-column field="GrossTotal" header="Gross Total" [sortable]="true"></p-column>
     <p-column field="InvoiceStatus" header="Invoice Status" [sortable]="true"></p-column>
     <p-column field="PaymentStatus" header="Payment Status" [sortable]="true"></p-column>
@@ -15,55 +24,79 @@
 </p-dataTable>
 
 <p-dialog header="New Invoice" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
-    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newInvoice">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="InternalNumber">Internal Number</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="InternalNumber" [(ngModel)]="newInvoice.InternalNumber" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="ProFormInvoiceDate">Pro Form Invoice Date</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="ProFormInvoiceDate" [(ngModel)]="newInvoice.ProFormInvoiceDate" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="FinalInvoiceDate">Final Invoice Date</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="FinalInvoiceDate" [(ngModel)]="newInvoice.FinalInvoiceDate" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="ProFormInvoiceNo">Pro Form Invoice No.</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="ProFormInvoiceNo" [(ngModel)]="newInvoice.ProFormInvoiceNo" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="FinalInvoiceNo">Final Invoice No.</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="FinalInvoiceNo" [(ngModel)]="newInvoice.FinalInvoiceNo" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="ProviderName">Provider Name</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="ProviderName" [(ngModel)]="newInvoice.ProviderName" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="ActivitiesValue">Activities Value</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="ActivitiesValue" [(ngModel)]="newInvoice.ActivitiesValue" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="GrossTotal">Gross Total</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="GrossTotal" [(ngModel)]="newInvoice.GrossTotal" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="InvoiceStatus">Invoice Status</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="InvoiceStatus" [(ngModel)]="newInvoice.InvoiceStatus" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="PaymentStatus">Payment Status</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="PaymentStatus" [(ngModel)]="newInvoice.PaymentStatus" /></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="PaymentDueDate">Payment Due Date</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="PaymentDueDate" [(ngModel)]="newInvoice.PaymentDueDate" /></div>
-        </div>
+    <div class="container" *ngIf="newInvoice">
+    <div class="row">
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="InternalNumber">Internal Number</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="InternalNumber" [(ngModel)]="newInvoice.InternalNumber" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="ProFormInvoiceDate">Pro Form Invoice Date</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="ProFormInvoiceDate" [(ngModel)]="newInvoice.ProFormInvoiceDate" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="FinalInvoiceDate">Final Invoice Date</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="FinalInvoiceDate" [(ngModel)]="newInvoice.FinalInvoiceDate" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="ProFormInvoiceNo">Pro Form Invoice No.</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="ProFormInvoiceNo" [(ngModel)]="newInvoice.ProFormInvoiceNo" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="FinalInvoiceNo">Final Invoice No.</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="FinalInvoiceNo" [(ngModel)]="newInvoice.FinalInvoiceNo" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="ProviderName">Provider Name</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="ProviderName" [(ngModel)]="newInvoice.ProviderName" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="ActivitiesValue">Activities Value</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="ActivitiesValue" [(ngModel)]="newInvoice.ActivitiesValue" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="GrossTotal">Gross Total</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="GrossTotal" [(ngModel)]="newInvoice.GrossTotal" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="InvoiceStatus">Invoice Status</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="InvoiceStatus" [(ngModel)]="newInvoice.InvoiceStatus" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="PaymentStatus">Payment Status</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="PaymentStatus" [(ngModel)]="newInvoice.PaymentStatus" />
+            </div>
+        </div></div>
+        <div class="form-group col-6"><div class="row">
+            <label  class="col-4 col-form-label" for="PaymentDueDate">Payment Due Date</label>
+            <div class="col-8">
+                <input class="form-control" type="text" id="PaymentDueDate" [(ngModel)]="newInvoice.PaymentDueDate" />
+            </div>
+        </div></div>
+    </div>
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa-check" (click)="save()" label="Add"></button>
+            <button type="button" pButton icon="fa-check" (click)="save()" label="Add" class="btn btn-default"></button>
         </div>
     </p-footer>
 </p-dialog>

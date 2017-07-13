@@ -15,30 +15,30 @@
   },
   {
     "Id": 2,
-    "InternalNumber": "2012/287",
-    "ProFormInvoiceDate": "2012-12-17",
-    "FinalInvoiceDate": "2013-02-01",
+    "InternalNumber": "2012/210",
+    "ProFormInvoiceDate": "2012-09-21",
+    "FinalInvoiceDate": "2012-09-30",
     "ProFormInvoiceNo": "",
     "FinalInvoiceNo": "",
-    "ProviderName": "Thomas Smith",
-    "ActivitiesValue": "11.18",
-    "GrossTotal": "11.18",
+    "ProviderName": "Marcin Provider 1",
+    "ActivitiesValue": "440",
+    "GrossTotal": "536.80",
     "InvoiceStatus": "Invoice Created",
-    "PaymentStatus": "Not Paid",
-    "PaymentDueDate": "2013-02-11"
+    "PaymentStatus": "Fully Paid",
+    "PaymentDueDate": "2012-10-10"
   },
   {
     "Id": 3,
-    "InternalNumber": "2012/287",
-    "ProFormInvoiceDate": "2012-12-17",
-    "FinalInvoiceDate": "2013-02-01",
+    "InternalNumber": "2012/201",
+    "ProFormInvoiceDate": "2012-09-07",
+    "FinalInvoiceDate": "2012-09-30",
     "ProFormInvoiceNo": "",
     "FinalInvoiceNo": "",
-    "ProviderName": "Thomas Smith",
-    "ActivitiesValue": "11.18",
-    "GrossTotal": "11.18",
+    "ProviderName": "XTRF TEST Provider 1",
+    "ActivitiesValue": "318.80",
+    "GrossTotal": "388.94",
     "InvoiceStatus": "Invoice Created",
     "PaymentStatus": "Not Paid",
-    "PaymentDueDate": "2013-02-11"
+    "PaymentDueDate": "2012-10-10"
   }
 ]
