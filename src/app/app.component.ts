@@ -57,4 +57,8 @@ export class AppComponent {
     debugger;
     this.invoices = this.invoices.filter((val,i) => i!=index);
   }
+
+  removeItem(){
+    this.deleteInvoice(this.selectedInvoice);
+  }
 }
